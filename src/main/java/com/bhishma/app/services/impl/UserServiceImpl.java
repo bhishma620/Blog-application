@@ -5,6 +5,7 @@ import com.bhishma.app.exceptions.ResourceNotFoundException;
 import com.bhishma.app.payloads.UserDto;
 import com.bhishma.app.repositories.UserRepo;
 import com.bhishma.app.services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
    @Autowired
    private UserRepo userRepo;
+
+   @Autowired
+   private ModelMapper modelMapper;
+
     @Override
     public UserDto createUser(UserDto userdto) {
         User user=this.dtoToUser(userdto);
@@ -61,22 +66,12 @@ public class UserServiceImpl implements UserService {
     }
 
     private User dtoToUser(UserDto userDto){
-        User user=new User();
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setAbout(userDto.getAbout());
-        user.setPassword(userDto.getPassword());
+        User user=this.modelMapper.map(userDto,User.class);
         return user;
     }
 
     private UserDto userTodto(User user){
-        UserDto userDto=new UserDto();
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setAbout(user.getAbout());
+        UserDto userDto=this.modelMapper.map(user,UserDto.class);
         return userDto;
     }
 }
