@@ -6,7 +6,6 @@ import com.bhishma.app.payloads.UserDto;
 import com.bhishma.app.repositories.UserRepo;
 import com.bhishma.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
