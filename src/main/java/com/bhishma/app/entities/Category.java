@@ -1,16 +1,14 @@
 package com.bhishma.app.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+
+
+import java.util.List;
 
 @Entity
 @Table(name="categories")
-@Getter
-@NoArgsConstructor
-@Setter
-
+@Data
 public class Category {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
@@ -22,4 +20,6 @@ public class Category {
     @Column(name = "description",length = 100)
     private String categoryDescription;
 
+    @OneToMany(mappedBy = "category",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private List<Post> posts;
 }
