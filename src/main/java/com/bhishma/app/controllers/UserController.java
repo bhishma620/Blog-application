@@ -3,6 +3,7 @@ package com.bhishma.app.controllers;
 import com.bhishma.app.payloads.ApiResponse;
 import com.bhishma.app.payloads.UserDto;
 import com.bhishma.app.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class UserController {
    private UserService userService;
 
     //creating user
-    @PostMapping("")
-    public ResponseEntity<UserDto>  createUser(@RequestBody UserDto userDto){
+    @PostMapping("/")
+    public ResponseEntity<UserDto>  createUser(@Valid @RequestBody UserDto userDto){
         UserDto createdUserDto=this.userService.createUser(userDto);
         return new ResponseEntity<>(createdUserDto, HttpStatus.CREATED);
     }
