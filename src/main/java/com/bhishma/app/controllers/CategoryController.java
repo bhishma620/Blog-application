@@ -3,6 +3,7 @@ package com.bhishma.app.controllers;
 import com.bhishma.app.payloads.ApiResponse;
 import com.bhishma.app.payloads.CategoryDto;
 import com.bhishma.app.services.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,11 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
+
+    //creating
+
     @PostMapping("/")
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto){
+    public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CategoryDto categoryDto){
 
        CategoryDto createdCategory= this.categoryService.createCategory(categoryDto);
 
@@ -24,11 +28,15 @@ public class CategoryController {
     }
 
 
+    //updating
+
     @PutMapping("/{categoryId}")
-    public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto,@PathVariable Integer categoryId){
+    public ResponseEntity<CategoryDto> updateCategory(@Valid @RequestBody CategoryDto categoryDto, @PathVariable Integer categoryId){
         CategoryDto updatedCategory=this.categoryService.updateCategory(categoryDto,categoryId);
         return new ResponseEntity<CategoryDto>(updatedCategory,HttpStatus.OK);
     }
+
+    //deleting
 
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<ApiResponse> deleteCategory(@PathVariable Integer categoryId){
@@ -37,12 +45,16 @@ public class CategoryController {
     }
 
 
+    //get single category
+
     @GetMapping("/{categoryId}")
     public ResponseEntity<CategoryDto> getCategory(@PathVariable Integer categoryId){
         CategoryDto category=this.categoryService.getCategory(categoryId);
 
         return new ResponseEntity<CategoryDto>(category,HttpStatus.OK);
     }
+
+    //get all categories
 
     @GetMapping("/")
     public ResponseEntity<List<CategoryDto>> getCategories(){
