@@ -3,6 +3,7 @@ package com.bhishma.app.controllers;
 
 import com.bhishma.app.payloads.ApiResponse;
 import com.bhishma.app.payloads.PostDto;
+import com.bhishma.app.payloads.PostResponse;
 import com.bhishma.app.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,9 +56,15 @@ public class PostController {
     //get all posts
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getAllPosts(){
-        List<PostDto> allPosts=this.postService.getAllPost();
-        return new ResponseEntity<List<PostDto>>(allPosts,HttpStatus.OK);
+    public ResponseEntity<PostResponse> getAllPosts(
+            @RequestParam(value="pageNumber",defaultValue = "0",required = false)Integer pageNumber,
+            @RequestParam(value="pageSize",defaultValue = "5",required = false) Integer pageSize,
+            @RequestParam(value="sortBy",defaultValue = "id",required = false) String sortBy,
+            @RequestParam(value="sortDir",defaultValue = "asc",required = false)String sortDir){
+        PostResponse posts=this.postService.getAllPost(pageNumber,pageSize,sortBy,sortDir);
+
+        return new ResponseEntity<PostResponse>(posts,HttpStatus.OK);
+
     }
 
     //get a single post

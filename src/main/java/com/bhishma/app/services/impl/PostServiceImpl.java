@@ -6,16 +6,24 @@ import com.bhishma.app.entities.User;
 import com.bhishma.app.exceptions.ResourceNotFoundException;
 import com.bhishma.app.payloads.CategoryDto;
 import com.bhishma.app.payloads.PostDto;
+import com.bhishma.app.payloads.PostResponse;
 import com.bhishma.app.repositories.CategoryRepo;
 import com.bhishma.app.repositories.PostRepo;
 import com.bhishma.app.repositories.UserRepo;
 import com.bhishma.app.services.PostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,13 +84,33 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPost() {
+    public PostResponse getAllPost(Integer pageNumber, Integer pageSize,String sortBY,String sortDir) {
 
-        List<Post>posts=this.postRepo.findAll();
+        Sort sort=null;
+        if(sortDir.equalsIgnoreCase("dsc")){
+            sort=Sort.by(sortBY).descending();
+        }
+        else {
+            sort=Sort.by(sortBY).ascending();
+        }
+        Pageable p= PageRequest.of(pageNumber,pageSize,sort);
 
-        List<PostDto>postDtos=posts.stream().map(post->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+        Page<Post> pagePost=this.postRepo.findAll(p);
 
-        return postDtos;
+        List<Post>allPosts=pagePost.getContent();
+
+        List<PostDto>postDtos=allPosts.stream().map(post->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+
+        PostResponse postResponse=new PostResponse();
+
+        postResponse.setContent(postDtos);
+        postResponse.setPageNumber(pagePost.getNumber());
+        postResponse.setPageSize(pagePost.getSize());
+        postResponse.setTotalElments(pagePost.getTotalElements());
+        postResponse.setTotalPages(pagePost.getTotalPages());
+        postResponse.setLastPage(pagePost.isLast());
+
+        return postResponse;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.bhishma.app.payloads;
 
-import com.bhishma.app.entities.Category;
-import com.bhishma.app.entities.User;
-import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +11,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class PostDto {
+    private Integer postId;
     private String title;
     private String Content;
     private String imageName;
