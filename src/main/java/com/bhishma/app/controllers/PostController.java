@@ -1,6 +1,8 @@
 package com.bhishma.app.controllers;
 
 
+import com.bhishma.app.config.Appconstant;
+import com.bhishma.app.entities.Post;
 import com.bhishma.app.payloads.ApiResponse;
 import com.bhishma.app.payloads.PostDto;
 import com.bhishma.app.payloads.PostResponse;
@@ -57,10 +59,10 @@ public class PostController {
 
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPosts(
-            @RequestParam(value="pageNumber",defaultValue = "0",required = false)Integer pageNumber,
-            @RequestParam(value="pageSize",defaultValue = "5",required = false) Integer pageSize,
-            @RequestParam(value="sortBy",defaultValue = "id",required = false) String sortBy,
-            @RequestParam(value="sortDir",defaultValue = "asc",required = false)String sortDir){
+            @RequestParam(value="pageNumber",defaultValue = Appconstant.PAGE_NUMBER,required = false)Integer pageNumber,
+            @RequestParam(value="pageSize",defaultValue = Appconstant.PAGE_SIZE,required = false) Integer pageSize,
+            @RequestParam(value="sortBy",defaultValue = Appconstant.SORT_BY,required = false) String sortBy,
+            @RequestParam(value="sortDir",defaultValue = Appconstant.SORT_DIR,required = false)String sortDir){
         PostResponse posts=this.postService.getAllPost(pageNumber,pageSize,sortBy,sortDir);
 
         return new ResponseEntity<PostResponse>(posts,HttpStatus.OK);
@@ -91,6 +93,15 @@ public class PostController {
     public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto ,@PathVariable Integer postId){
         PostDto post=this.postService.updatePost(postDto,postId);
         return new ResponseEntity<PostDto>(post,HttpStatus.OK);
+    }
+
+    //search
+    @GetMapping("posts/search/{keywords}")
+    public ResponseEntity<List<PostDto>> seachPostByTitle(@PathVariable String keywords){
+
+        List<PostDto>postDtos=this.postService.searchPosts(keywords);
+
+        return new ResponseEntity<List<PostDto>>(postDtos,HttpStatus.OK);
     }
 
 }
