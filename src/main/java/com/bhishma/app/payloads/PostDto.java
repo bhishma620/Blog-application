@@ -14,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class PostDto {
+
     private Integer postId;
     private String title;
     private String Content;
@@ -21,6 +22,7 @@ public class PostDto {
     private Date addedDate;
     private CategoryDto category;
     private UserDto user;
+
     private Set<CommentDto> comments=new HashSet<>();
 
     }

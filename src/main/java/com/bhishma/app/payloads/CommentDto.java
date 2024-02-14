@@ -10,5 +10,6 @@ public class CommentDto {
     private  Integer id;
     private String content;
 
-    private PostDto post;
+
+
 }
