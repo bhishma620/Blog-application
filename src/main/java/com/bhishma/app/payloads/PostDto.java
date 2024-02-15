@@ -18,7 +18,6 @@ public class PostDto {
     private Integer postId;
     private String title;
     private String Content;
-    private String imageName;
     private Date addedDate;
     private CategoryDto category;
     private UserDto user;
