@@ -1,6 +1,8 @@
 # Spring Boot Blog Application
 
-This Spring Boot application serves as a robust and efficient platform for managing a blog. It offers a range of functionalities including user account management, post creation, categorization of posts, commenting, and search capabilities. The API is designed to be intuitive and follows RESTful principles for easy integration and usage.
+# About
+
+This Spring Boot Blog Application is a comprehensive platform designed for efficient management of a blog. Leveraging Spring Boot, Spring Data JPA, and MySQL, it offers a robust backend infrastructure for handling user accounts, posts, categories, comments, and search functionalities via RESTful API.
 
 ## Features
 
@@ -23,7 +25,7 @@ To get started with the application, follow these steps:
 2. Navigate to the project directory:
 
     ```
-    cd spring-boot-blog
+    cd Blog-application
     ```
 
 3. Configure the database connection settings in `src/main/resources/application.yml`. Update the `url`, `username`, and `password` properties according to your MySQL database configuration.
