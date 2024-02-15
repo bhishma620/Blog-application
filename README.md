@@ -10,6 +10,38 @@ This Spring Boot application serves as a robust and efficient platform for manag
 - **Commenting System:** Users can interact with posts by leaving comments.
 - **Search Functionality:** Search posts by title using keywords.
 
+## Getting Started
+
+To get started with the application, follow these steps:
+
+1. Clone the repository to your local machine:
+
+    ```
+    git clone <repository_url>
+    ```
+
+2. Navigate to the project directory:
+
+    ```
+    cd spring-boot-blog
+    ```
+
+3. Configure the database connection settings in `src/main/resources/application.yml`. Update the `url`, `username`, and `password` properties according to your MySQL database configuration.
+
+4. Build the application using Maven:
+
+    ```
+    ./mvnw clean package
+    ```
+
+5. Run the application:
+
+    ```
+    ./mvnw spring-boot:run
+    ```
+
+6. Once the application is running, access the API endpoints using a web browser or API testing tool. The base URL is `http://localhost:8081/`.
+   
 ## API Reference
 
 ### Users
